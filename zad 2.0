@@ -1,0 +1,17 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int x,y,z;
+    cin >> x;
+    cin >> y;
+    cout<<"kawałków pizzy jest:"<<x<<endl;
+    cout<<"Osób jest:"<<y<<endl;
+    z  = x%y;
+    int(h) = x/y;
+    cout<<"Organizator dostał:"<<z<<endl;
+    cout<<"Każda osoba dostała:"<<h<<endl;
+    return 0;
+}
