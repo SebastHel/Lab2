@@ -6,7 +6,9 @@ int main()
 {
     int a,b,i,j;
     string wyraz ="*";
+    cout << "Podaj a:";
     cin >> a;
+    cout << "Podaj b:";
     cin >> b;
     i = 0;
     while(i<b){
@@ -23,17 +25,18 @@ int main()
     }
     cout<<"Prostokąt-Pusty" <<endl;
     for (j=0;j<b;j++){
-        for(i=0;i<=a;i++){
-            if(a>i && i>0 && j>0 && j<b){
-                cout<<" ";
+        for(i=0;i<a;i++){
+            if (j == 0 or j == (b-1)){
+                cout << "*";
             }
-            else{
-                cout<<"*";
-            }
-            
+            else
+                if (i == 0 or i == (a-1)){
+                    cout << "*";
+                }
+                else
+                    cout << " ";
         }
-        
-        cout<<endl;
+        cout << endl;
     }
     
     
