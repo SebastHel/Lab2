@@ -1,0 +1,64 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main()
+{
+    cout<< "Równanie Kwadratowe ma postać:" << endl;
+    cout << "Ax² + Bx + C" << endl;
+    
+    
+    float A;
+    float B;
+    float C;
+    cout << "Wprowadź A,B,C"<<endl;
+    cin>>A;
+    cin>>B;
+    cin>>C;
+    
+    if (A == 0) {
+		cout << "Wartość A nie może być równe 0" << endl;
+		return 0;
+	}
+	else;
+		cout << A; 
+		if (B < 0){
+		    cout << "x² " << B; 
+		}
+		if (B >= 0){
+		    cout << "x² + " << B;
+		}
+		if (C < 0){
+		    cout << "x " << C; 
+		}
+		if (C >= 0){
+		    cout << "x + " << C; 
+		}
+		cout<<endl;
+		
+		float delta = 0;
+		float sqrdelta = 0;
+		
+		
+		delta = (B * B) - (4 * A * C);
+		sqrdelta = sqrt(delta);
+		if (delta >= 0){
+			if (delta == 0){
+			    int x = (B*(-1)) / (2 * A);
+			    cout << "Delta wynosi"<< delta << endl;
+			    cout << "Pierwiastek wynosi:"<< x<< endl;
+			    return 0;
+			}
+			else;
+			    float x1, x2;
+			    x1 = ((B*(-1)) - sqrt(delta)) / (2 * A);
+			    x2 = ((B*(-1)) + sqrt(delta)) / (2 * A);
+			    cout << "Delta wynosi = " << delta << endl;
+				cout << "Pierwszy pierwiastek rówania wynosi: " << x1 << endl;
+				cout << "Drogi pierwiastek rownania wynosi: " << x2 << endl;
+				return 0;
+		}
+		else;
+		    cout << "Rownanie nie ma pierwiastków w zbiorze liczb rzeczywistych";
+		    return 0;
+}
