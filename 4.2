@@ -1,0 +1,38 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int ilosc = 0;
+    int n = 0;
+    int najczesciej = 1;
+    int max = 0;
+    int g = 0;
+    cout << "wprowadź długość tablicy" << endl;
+    cin >> ilosc;
+    int tablica[ilosc];
+    for(int i = 0; i<ilosc; i++){
+        cout<< "podaj warość dla elementu"<< i << endl;
+        cin >> n;
+        tablica[i] = n;
+    }
+    for(int i = 0; i<ilosc; i++){
+        for(int z = 0; z<ilosc; z++){
+            if(tablica[z] == tablica[i]){
+                najczesciej += 1;
+                if(najczesciej > max){
+                    g = tablica[i];
+                    max = najczesciej;
+                }
+                else{
+                najczesciej == 0;
+                }
+            }
+
+            
+        }
+            
+    }
+    cout << "najczęstszą  liczbą jest" << max<< endl;
+}
