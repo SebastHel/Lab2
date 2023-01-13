@@ -1,0 +1,155 @@
+#include <iostream>
+#include <conio.h> //moduł odpowiadający za poruszanie się .
+#include <Windows.h> //moduł odpowiadający za spowolnienie konsoli.
+
+bool isgameover; 
+const int width = 20; //szerokość mapy
+const int height = 20; //wysokość mapy
+int X_position, Y_position, X_fruit, Y_fruit, score; //pozycje postaci,owocu jak i wynik.
+int tailX[50], tailY[50]; // tablice przechowywujące pozycje X,Y ogona. 
+int nTail = 2; // długość ogona początkowa.
+enum eDiretion {Left, Right, Up, Down}; // zdeklarowanie grupy wartości stałych
+eDiretion dir; 
+void keyboard() {
+    if (_kbhit()) {
+        switch (_getch()) {
+        case char(72): if (dir != Down) { dir = Up; }; break; //Przypisanie do górnej strzałki nazwy UP i uniemożliwienie poruszania się w dół podczas poruszania w Góre.
+        case char(80): if (dir != Up) { dir = Down; }; break;//Przypisanie do dolnej strzałki nazwy Down i uniemożliwienie poruszania się w górę podczas poruszania w dół.
+        case char(77): if (dir != Left) { dir = Right; }; break;//Przypisanie do prawej strzałki nazwy Right i uniemożliwienie poruszania się w Lewo podczas poruszania w Prawo.
+        case char(75): if (dir != Right) { dir = Left; }; break;//Przypisanie do górnej strzałki nazwy Left i uniemożliwienie poruszania się w Prawo podczas poruszania w Lewo.
+        }
+    }
+}
+void mechanics() {
+    // Ogon podążający za głową
+    for (int i = nTail - 1; i > 0; i--)
+    {
+        tailX[i] = tailX[i - 1];
+        tailY[i] = tailY[i - 1];
+    }
+    tailX[0] = X_position;
+    tailY[0] = Y_position;
+
+    switch (dir) //Switch odpowiadający za ruch dodający w zależności od strzałki wartość X i Y.
+    {
+    case Left:X_position--; break;
+    case Right: X_position++; break;
+    case Up:Y_position--; break;
+    case Down: Y_position++; break;
+    default: break;
+    }
+    if (X_position > width || X_position < 0 || Y_position > height || Y_position < 0) // Sprawdzenie czy gracz nie wjechał w ściane.
+        isgameover = true;
+
+    for (int i = 2; i < nTail; i++) { //Sprawdzenie czy gracz nie najechał na swój ogon jeżeli najechał kończy grę.
+        if (tailX[i] == X_position && tailY[i] == Y_position)
+            isgameover = true;
+    }
+
+    for (int i = 0; i < nTail; i++)
+    {
+        if (X_fruit == tailX[i] && Y_fruit == tailY[i]) // Sprawdzenie czy gracz najechał na owoc.
+        {   
+            score += 1;
+            X_fruit = rand() % width; //określenie pozycji X pojawiającego się kolejnego owocu.
+            Y_fruit = rand() % height; //określenie pozycji Y pojawiającego się kolejnego owocu.
+            nTail++;
+        }
+        
+    }  
+}
+void draw() {
+    system("cls");
+
+    for (int i = 0; i < width + 2; i++) //rysowanie górnej krawędzi mapy
+        std::cout << "*";
+    std::cout << std::endl;
+
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            if (j == 0) //rysowanie lewej krawędzi
+                std::cout << "*";
+            if (i == Y_position && j == X_position) // rysowanie głowy węża
+                std::cout << "@";
+            else if (i == Y_fruit && j == X_fruit) // rysowanie owoców
+                std::cout << "%";
+            else {
+                bool print = false;
+                for (int k = 0; k < nTail; k++) //rysowanie ogona
+                {
+                    if (tailX[k] == j && tailY[k] == i) {
+                        std::cout << "#";
+                        print = true;
+                    }
+                }
+                if (!print)
+                    std::cout << " ";
+            }
+            if (j == width - 1) //rysowanie prawej krawędzi
+                std::cout << "*";
+        }
+        std::cout << std::endl;
+    }
+
+    for (int i = 0; i < width + 2; i++) //rysowanie dolnej krawędzi mapy
+        std::cout << "*";
+    std::cout << std::endl;
+    std::cout << "Twoj Wynik:" << score << std::endl; //Wynik pod mapą żeby widzieć aktualną ilość punktów.
+}
+int main()
+{   
+    isgameover = false;
+    dir = Up; // Określenie pierwszego ruchu po rozpoczęciu gry.
+    X_position = width / 2; // Wycentrowanie Startowej Pozycji X.
+    Y_position = height / 2; // Wycentrowanie Startowej Pozycji Y.
+    X_fruit = rand() % width; //Przypisanie pierwszej pozycji X owocu.
+    Y_fruit = rand() % height; //Przypisanie pierwszej pozycji Y owocu
+    score = 0; // Początkowy Wynik
+    int z;
+    std::cout << R"(
+                         
+                          ______                           ______                    __
+                         /      \                         /      \                  /  |
+                         /$$$$$$  | ______  ______        /$$$$$$  |_______   ______ $$ |   __  ______
+                         $$ | _$$/ /      \/      \       $$ \__$$//       \ /      \$$ |  /  |/      \
+                         $$ |/    /$$$$$$  $$$$$$  |      $$      \$$$$$$$  |$$$$$$  $$ |_/$$//$$$$$$  |
+                         $$ |$$$$ $$ |  $$//    $$ |       $$$$$$  $$ |  $$ |/    $$ $$   $$< $$    $$ |
+                         $$ \__$$ $$ |    /$$$$$$$ |      /  \__$$ $$ |  $$ /$$$$$$$ $$$$$$  \$$$$$$$$/
+                         $$    $$/$$ |    $$    $$ |      $$    $$/$$ |  $$ $$    $$ $$ | $$  $$       |
+                          $$$$$$/ $$/      $$$$$$$/        $$$$$$/ $$/   $$/ $$$$$$$/$$/   $$/ $$$$$$$/
+    
+)" << '\n';
+
+    std::cout << "Nacisnij 1 zeby zagrac\n";
+    std::cout << "Wpisz inna liczbe jak chcesz zakonczyc\n";
+    std::cin >> z;
+    if (z == 1)
+    {
+        while (!isgameover) {
+            keyboard();
+            mechanics();
+            draw();
+            Sleep(50); // Funkcja opdowiedzialna za Spowolnienie.
+
+        }
+        system("cls");
+        std::cout << R"(
+                                 
+                                                  *             )            (
+                                  (       (     (  `         ( /(            )\ )
+                                  )\ )    )\    )\))(  (     )\())(   (  (  (()/(
+                                 (()/( ((((_)( ((_)()\ )\   ((_)\ )\  )\ )\  /(_))
+                                  /(_))_)\ _ )\(_()((_((_)    ((_((_)((_((_)(_))
+                                 (_)) __(_)_\(_|  \/  | __|  / _ \ \ / /| __| _ \
+                                   | (_ |/ _ \ | |\/| | _|  | (_) \ V / | _||   /
+                                    \___/_/ \_\|_|  |_|___|  \___/ \_/  |___|_|_\
+                                                                                   
+      
+
+)" << '\n';
+        std::cout << "Twoj Wynik to:" << score;
+        system("pause>0");
+    }
+    return 0;
+
+}
