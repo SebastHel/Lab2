@@ -1,0 +1,18 @@
+#include <iostream>
+
+int main()
+{
+    std::string word, konkatynacja;
+    int ilosc;
+
+    std::cout << "Podaj slowo do konkatynacji:" << std::endl;
+    std::cin >> word;
+    std::cout << std::endl << "Wprowadz ilosc konkatynacji:"<<std::endl;
+    std::cin >> ilosc;
+
+    for (int i = 1; i <= ilosc + 1; i++)
+        konkatynacja += word;
+    std::cout << "Twoim wynikiem jest " << konkatynacja;
+
+    return 0;
+}
