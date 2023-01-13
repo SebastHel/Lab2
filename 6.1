@@ -1,0 +1,17 @@
+#include <iostream>
+
+int main()
+{
+    int n;
+    int ilosc = 0;
+    std::cout << "Podaj liczbę: ";
+    std::cin >> n;
+
+    for (int i = 0; i <= n; i++) {
+        if ((i % 3) != 0 && (i % 5) == 0)
+            ilosc++;
+    }
+    std::cout << "Liczb Naturalnych podzielnych przez 5 niepodzielnych przez 3 jest: " << ilosc;
+
+    return 0;
+}
