@@ -4,21 +4,21 @@ using namespace std;
 
 int main()
 {
-    int ilosc = 0;
+    int ilosc;
     int n = 0;
     int max = 0;
-    cout << "wprowadź długość tablicy" << endl;
+    cout << "wprowadz dlugosc tablicy" << endl;
     cin >> ilosc;
-    int tablica[ilosc];
-    for(int i = 0; i<ilosc; i++){
+    int tablica[100];
+    for (int i = 0; i < ilosc; i++) {
         cin >> n;
         tablica[i] = n;
     }
-    for(int i = 0; i<ilosc; i++){
-        if(tablica[i] > max){
+    for (int i = 0; i < ilosc; i++) {
+        if (tablica[i] > max) {
             max = tablica[i];
         }
-            
+
     }
-    cout << "największą liczbą jest" << max << endl;
+    cout << "najwieksza liczba jest" << max << endl;
 }
