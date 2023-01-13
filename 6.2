@@ -1,0 +1,44 @@
+#include <iostream>
+
+int main()
+{
+    std::string imiona[7];
+    int ocena_inf[7], ocena_mat[7], ocena_biol[7], ocena_pol[7];
+    int ilosc, numer, nr_przed;
+    std::string przedmioty[4] = { "informatyki", "matematyki", "biologii" ,"jezyk_polski" };
+
+    for (int i = 1; i < 7; i++) {
+        std::cout << "Podaj imie ucznia nr " << i << ": ";
+        std::cin >> imiona[i];
+        std::cout << "Ocena z informatyki : ";
+        std::cin >> ocena_inf[i];
+        std::cout << "Ocena z Matematyki : ";
+        std::cin >> ocena_mat[i];
+        std::cout << "Ocena z biologii : ";
+        std::cin >> ocena_biol[i];
+        std::cout << "Ocena jezyka polskiego : ";
+        std::cin >> ocena_pol[i];
+    }
+    std::cout << "Wprowadz ilosc Pytan: ";
+    std::cin >> ilosc;
+
+    for (int i = 1; i <= ilosc; i++) {
+        std::cout << "Podaj nr ucznia od 1 do 6 : ";
+        std::cin >> numer;
+        std::cout << "Podaj nr przedmiotu od 0 do 3 : ";
+        std::cin >> nr_przed;
+        std::cout << "Uczen: " << imiona[numer] << ", ocena z " << przedmioty[nr_przed] << " : ";
+        
+        switch (numer) {
+        case 0: std::cout << ocena_inf[numer]; break;
+        case 1: std::cout << ocena_mat[numer]; break;
+        case 2: std::cout << ocena_biol[numer]; break;
+        case 3: std::cout << ocena_pol[numer]; break;
+        }
+        std::cout << std::endl;
+    }
+
+
+
+    return 0;
+}
