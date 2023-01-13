@@ -10,12 +10,9 @@ int main()
 
     for (int i = 0; i < size; i++)
     {
-        std::cout << "Podaj element " << i + 1 << " tablicy liczb calkowitych: ";
+        std::cout << "Podaj element: " << i + 1 << std::endl;
         std::cin >> array[i];
     }
-    std::cout << std::endl << "Twoja tablica to: ";
-    for (int z = 0; z < size; z++) 
-        std::cout << array[z];
     std::cout << std::endl << "Tablica wejsciowa:" << std::endl;
     for (int i = 0; i < size; i++) {
         if ((i % 2) == 0)
